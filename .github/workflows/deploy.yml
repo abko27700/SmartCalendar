@@ -8,15 +8,15 @@ on:
 
 env:
   AWS_REGION: "us-east-1"  # Change to reflect your AWS Region
-
+ 
 jobs:
   AssumeRoleAndCallIdentity:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3  # Ensure compatibility with Python
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1  # Adjusted for compatibility
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1.7.0
         with:
           role-to-assume: "arn:aws:iam::339713072790:role/GitHubAction-AssumeRoleWithAction"
           role-session-name: "GitHub_to_AWS_via_FederatedOIDC"
