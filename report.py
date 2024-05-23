@@ -1,7 +1,6 @@
 import datetime
 import json
 
-
 class ReportGenerator:
     def __init__(self, events_by_date):
         self.events_by_date = events_by_date
@@ -78,6 +77,8 @@ def load_events_from_json(json_file):
 def fetch_report():
     # Specify the path to your events.json file
     events_json_file = "events.json"
+
+    
 
     # Load events data from JSON file
     events_by_date = load_events_from_json(events_json_file)
