@@ -58,7 +58,7 @@ class GoogleCalendar:
                 calendarId="primary",
                 timeMin=time_min,
                 timeMax=time_max,
-                maxResults=100,  # Adjust maxResults as needed
+                maxResults=200,  # Adjust maxResults as needed
                 singleEvents=True,
                 orderBy="startTime",
             )
@@ -144,12 +144,13 @@ class GoogleCalendar:
                 # Check if event_key already exists in events_map
                 if event_key in events_map:
                     self.service.events().delete(calendarId=calendar_id, eventId=event_id).execute()
-                    # duplicate_list.append(event_id)
                     num_deleted+=1
                 else:
                     # Add event to events_map with its unique key
                     events_map[event_key] = True
         # self.batch_delete(duplicate_list,calendar_id)
+                    
+        self.future_events(30)
                 
         return num_deleted  # Operation completed successfully
     
