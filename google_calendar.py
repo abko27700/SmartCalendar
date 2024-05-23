@@ -155,6 +155,7 @@ class GoogleCalendar:
         return num_deleted  # Operation completed successfully
     
     def fetch_report(self,calendar_id="primary"):
+        self.delete_duplicate_events()
         return report.fetch_report()
     
 

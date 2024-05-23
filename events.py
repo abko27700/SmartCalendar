@@ -63,7 +63,6 @@ def delete_duplicate_events():
 
 @events_bp.route("/events/report", methods=["GET"])
 def fetch_report():
-    calendar.delete_duplicate_events()
     try:
         logger.info("Fetching report")
         report = calendar.fetch_report()
