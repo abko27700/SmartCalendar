@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo pkill -f gunicorn
 cd /home/ec2-user/projectDaria/smartCalendar
 
 sh /home/ec2-user/smartCalendarCommands.sh
