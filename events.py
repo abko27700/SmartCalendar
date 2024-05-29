@@ -73,7 +73,7 @@ def fetch_report():
 
 @events_bp.route("/events/forwardReports", methods=["POST"])
 def forward_reports_to_slack():
-    """Forward report payloads specified endpoint."""
+    """Forward report payloads specified endpoint. """
     try:
         logger.info("Forwarding reports to Slack")
         report = calendar.fetch_report()
