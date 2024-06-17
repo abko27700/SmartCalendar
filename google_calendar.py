@@ -12,6 +12,7 @@ from googleapiclient.http import BatchHttpRequest
 
 SCOPES = ["https://www.googleapis.com/auth/calendar"]
 
+
 class GoogleCalendar:
     def __init__(self):
         self.scopes = SCOPES
@@ -24,7 +25,8 @@ class GoogleCalendar:
 
         # Load credentials from token.json if it exists
         if os.path.exists("token.json"):
-            creds = Credentials.from_authorized_user_file("token.json", self.scopes)
+            creds = Credentials.from_authorized_user_file(
+                "token.json", self.scopes)
 
         # If there are no (valid) credentials available, initiate OAuth 2.0 flow
         if not creds or not creds.valid:
@@ -43,9 +45,9 @@ class GoogleCalendar:
         return creds
 
     def future_events(self, days):
-        output_file="events.json"
+        output_file = "events.json"
         if not self.service:
-            return {}  # 
+            return {}  #
         """Fetch upcoming events for the specified number of days and organize them by date."""
         now = datetime.datetime.utcnow() - datetime.timedelta(days=7)
         end_date = now + datetime.timedelta(days=days)
@@ -86,10 +88,10 @@ class GoogleCalendar:
                 events_by_date[event_date] = []
 
             events_by_date[event_date].append(event_data)
-        
+
         print("Returning data")
 
-        #to make sure the json is empty, then we write new data.
+        # to make sure the json is empty, then we write new data.
         with open(output_file, "w") as json_file:
             json.dump({}, json_file)
 
@@ -123,12 +125,12 @@ class GoogleCalendar:
             print(f"An error occurred while deleting the event: {e}")
             return False
 
-    def delete_duplicate_events(self,calendar_id="primary"):
+    def delete_duplicate_events(self, calendar_id="primary"):
         """Delete duplicate events"""
-        events_by_date=self.future_events(30)
+        events_by_date = self.future_events(30)
         print("fetched calendar events!")
         num_deleted = 0
-        duplicate_list=[]
+        duplicate_list = []
         for date, event_list in events_by_date.items():
             events_map = {}
             for event in event_list:
@@ -144,26 +146,25 @@ class GoogleCalendar:
                 # Check if event_key already exists in events_map
                 if event_key in events_map:
                     self.service.events().delete(calendarId=calendar_id, eventId=event_id).execute()
-                    num_deleted+=1
+                    num_deleted += 1
                 else:
                     # Add event to events_map with its unique key
                     events_map[event_key] = True
         # self.batch_delete(duplicate_list,calendar_id)
-                    
+
         self.future_events(30)
-                
+
         return num_deleted  # Operation completed successfully
-    
-    def fetch_report(self,calendar_id="primary"):
+
+    def fetch_report(self, calendar_id="primary"):
         self.delete_duplicate_events()
         return report.fetch_report()
-    
 
-    def batch_delete(self,events,calendar_id="primary"):
+    def batch_delete(self, events, calendar_id="primary"):
         for event in events:
             try:
                 self.service.events().delete(calendarId=calendar_id, eventId=event).execute()
                 return True
             except Exception as e:
-                print(f"An error occurred while deleting the event: {e}")
+                print(f"An error occurred  while deleting the event: {e}")
                 return False
