@@ -9,7 +9,7 @@ touch /home/ec2-user/projectDaria/smartCalendar/logs/deployment.log
 touch /home/ec2-user/projectDaria/smartCalendar/logs/smartCalendar.log
 
 # Install dependencies using pip
-pip install flask google-auth google-auth-oauthlib google-api-python-client gunicorn
+pip install flask flask-cors google-auth google-auth-oauthlib google-api-python-client gunicorn
 
 
 # Start the application (assuming app.py with app function)
