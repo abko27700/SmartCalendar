@@ -71,23 +71,30 @@ class GoogleCalendar:
 
         events_by_date = {}
         for event in events:
-            start = event["start"].get("dateTime", event["start"].get("date"))
-            end = event["end"].get("dateTime", event["end"].get("date"))
-            summary = event["summary"]
-            event_id = event["id"]
+            try:
+                start = event["start"].get(
+                    "dateTime", event["start"].get("date"))
+                end = event["end"].get("dateTime", event["end"].get("date"))
+                summary = event["summary"]
+                event_id = event["id"]
 
-            event_data = {
-                "event_id": event_id,
-                "start_time": start.split("T")[1][:5],
-                "end_time": end.split("T")[1][:5],
-                "summary": summary,
-            }
+                event_data = {
+                    "event_id": event_id,
+                    "start_time": start.split("T")[1][:5],
+                    "end_time": end.split("T")[1][:5],
+                    "summary": summary,
+                }
 
-            event_date = start.split("T")[0]
-            if event_date not in events_by_date:
-                events_by_date[event_date] = []
+                event_date = start.split("T")[0]
+                if event_date not in events_by_date:
+                    events_by_date[event_date] = []
 
-            events_by_date[event_date].append(event_data)
+                events_by_date[event_date].append(event_data)
+
+            except Exception as e:
+                print(f"Error processing event: {event}")
+                print(f"Error details: {e}")
+                print(f"Value of 'start' causing the error: {start}")
 
         print("Returning data")
 
