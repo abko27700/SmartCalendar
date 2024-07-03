@@ -25,7 +25,7 @@ class ReportGenerator:
         return total_hours
 
     def generate_reports(self):
-        """Generate reports for events named 'AT LABS'. """
+        """Generate reports for events named 'AT LABS'."""
         reports = {}
 
         # Determine start date based on the current day of the week
