@@ -1,6 +1,7 @@
 import datetime
 import json
 
+
 class ReportGenerator:
     def __init__(self, events_by_date):
         self.events_by_date = events_by_date
@@ -24,7 +25,7 @@ class ReportGenerator:
         return total_hours
 
     def generate_reports(self):
-        """Generate reports for events named 'AT LABS'."""
+        """Generate reports for events named 'AT LABS'. """
         reports = {}
 
         # Determine start date based on the current day of the week
@@ -33,11 +34,13 @@ class ReportGenerator:
 
             current_weekday = current_date.weekday()
             days_until_thursday = (3 - current_weekday) % 7
-            next_thursday = current_date + datetime.timedelta(days=days_until_thursday)
+            next_thursday = current_date + \
+                datetime.timedelta(days=days_until_thursday)
 
             # Find the next Friday
             days_until_friday = (4 - current_weekday) % 7
-            next_friday = current_date + datetime.timedelta(days=days_until_friday)
+            next_friday = current_date + \
+                datetime.timedelta(days=days_until_friday)
 
             # Find the date of the last Friday (previous Friday)
             last_friday = next_friday - datetime.timedelta(days=7)
@@ -48,7 +51,8 @@ class ReportGenerator:
             # Find events within the current week (from today to next Thursday)
             weekly_events = []
             for date, events in self.events_by_date.items():
-                event_date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+                event_date = datetime.datetime.strptime(
+                    date, "%Y-%m-%d").date()
                 if last_friday <= event_date <= next_thursday:
                     weekly_events.extend(events)
 
@@ -59,11 +63,11 @@ class ReportGenerator:
             # reports[f"{last_friday} - {next_thursday}"] = total_hours
             reports[f"{last_friday.strftime('%b %d')} - {next_thursday.strftime('%b %d')}"] = total_hours
 
-
             # Move to the start of the next week (next Friday)
             current_date += datetime.timedelta(days=7)
 
         return reports
+
 
 def load_events_from_json(json_file):
     try:
@@ -74,11 +78,10 @@ def load_events_from_json(json_file):
         print(f"Error: File '{json_file}' not found.")
         return {}
 
+
 def fetch_report():
     # Specify the path to your events.json file
     events_json_file = "events.json"
-
-    
 
     # Load events data from JSON file
     events_by_date = load_events_from_json(events_json_file)
