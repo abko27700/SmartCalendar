@@ -51,7 +51,7 @@ def delete_event(event_id):
         return jsonify({"message": f"Event with ID '{event_id}' deleted successfully"})
     except Exception as e:
         logger.error(
-            f"Failed to delete event with ID: {event_id}, Error: {str(e)}")
+            f"Failed to delete  event with ID: {event_id}, Error: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 
