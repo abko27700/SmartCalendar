@@ -116,5 +116,5 @@ def forward_reports_to_slack():
             return jsonify({"error": f"Failed to forward reports to Slack. Status code: {response.status_code}", "response_msg": response.json()}), 500
 
     except Exception as e:
-        logger.error(f"An error occurred: {str(e)}")
+        logger.error(f"An error occurred:: {str(e)}")
         return jsonify({"error": str(e)}), 500
