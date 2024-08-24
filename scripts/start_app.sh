@@ -8,7 +8,7 @@ cp /home/ec2-user/secrets/* /home/ec2-user/projectDaria/smartCalendar/
 touch /home/ec2-user/projectDaria/smartCalendar/logs/deployment.log
 touch /home/ec2-user/projectDaria/smartCalendar/logs/smartCalendar.log
 
-# Install dependencies using pip
+# Install dependencies using pip .
 pip install flask flask-cors google-auth google-auth-oauthlib google-api-python-client gunicorn
 
 
