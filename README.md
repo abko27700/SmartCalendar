@@ -42,13 +42,3 @@ To set up this project locally or on your server, follow these steps:
 2. Set up the necessary environment variables for Microsoft Teams and Google Calendar API integrations.
 3. Deploy the Flask app on an EC2 instance or any preferred hosting service.
 4. Configure AWS EventBridge to trigger the API endpoint as scheduled.
-
-For detailed setup instructions, refer to the [Installation Guide](INSTALLATION.md).
-
-## Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for more details.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
