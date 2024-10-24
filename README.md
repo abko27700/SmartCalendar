@@ -1,21 +1,54 @@
-Challenge1: University of Florida did not allow Microsoft teams shifts to sync with any calendar. This led to students manually adding their work shifts to their calendar. Students also had challenges calculating their scheduled hours. Especially for international students who could not exceed the 20 hour limit cap.
+# SMART CALENDAR
 
-Solution: Using microsoft workflows, I scanned user shifts(per user) for the next two weeks and sent them to their google calendar. Users need to do a one time integration between teams and calendar.
+This project automates the integration of Microsoft Teams shifts with Google Calendar, specifically designed to assist University of Florida students in managing their work schedules. It addresses the challenges of manual calendar entry and duplicate event management while ensuring compliance with work hour limits.
 
-Challenge 2: The workflow rules had very limited control, I was not able to send uniquely added calendar events. For practicality, every day at 6pm, the shifts will be sent to google calendar. 
+## Project Overview
 
-Challenge 3: Google calendar does not recognize the duplicate entries as eventId is different even if event Name, start time, end time are the same. How can we delete duplicate calendar events. 
+Students faced difficulties manually adding their work shifts to calendars and calculating scheduled hours, particularly international students who must adhere to a 20-hour work limit. This solution automates these processes using Microsoft workflows and Google Calendar API.
 
-Solution: Using google calendar api, we can get a list of all the events in a time period. Identifying events with same name and starttime and endtime, we can delete the duplicate ones. This process can be executed every day at 6:30 pm. 
+## Challenges and Solutions
 
-Challenge: How do we automate this script?
+### Challenge 1: Manual Calendar Entry
+- **Problem**: Lack of direct integration required manual entry of shifts.
+- **Solution**: Implemented Microsoft workflows to scan user shifts for the next two weeks and send them to Google Calendar. This requires a one-time integration setup between Teams and Google Calendar.
 
-Solution: Flask app on ec2 instance. The api endpoint is invoked by an aws event bridge function.  
+### Challenge 2: Limited Workflow Control
+- **Problem**: Workflow rules did not allow sending uniquely added calendar events.
+- **Solution**: Scheduled daily updates at 6 PM to send shifts to Google Calendar.
 
-Flow: Users sign in to the hosted website, do a one time google Auth. They can view their shifts report. 
+### Challenge 3: Duplicate Calendar Events
+- **Problem**: Google Calendar does not recognize duplicates if `eventId` differs, even with identical event details.
+- **Solution**: Utilized Google Calendar API to identify and delete duplicate events with the same name, start time, and end time. This cleanup runs daily at 6:30 PM.
 
-Additional Functionality: This Workflow is also integrated with slack using a slack app. If the user ever exceeds their permitted hours, can send an notification. Integrating to other applications should not be challenging. 
+## Automation
 
+- **Implementation**: A Flask app hosted on an EC2 instance automates this process. An AWS EventBridge function triggers the API endpoint.
+- **User Interaction**: Users sign in via a hosted website for a one-time Google authentication. They can view their shift reports online.
 
-Deployment:
-Code changes once approved, using github workflows+aws code pipeline are deployed to the ec2 instance. Right now, the service has a single ec2 instance running so the service shuts down for a few seconds during deployment. 
+## Additional Features
+
+- **Slack Integration**: The workflow integrates with Slack to notify users if they exceed permitted work hours.
+- **Extensibility**: The framework allows easy integration with other applications.
+
+## Deployment Process
+
+- **CI/CD Pipeline**: Code changes are deployed using GitHub Workflows and AWS CodePipeline. Currently, the service runs on a single EC2 instance, resulting in brief downtime during deployments.
+
+## Getting Started
+
+To set up this project locally or on your server, follow these steps:
+
+1. Clone the repository.
+2. Set up the necessary environment variables for Microsoft Teams and Google Calendar API integrations.
+3. Deploy the Flask app on an EC2 instance or any preferred hosting service.
+4. Configure AWS EventBridge to trigger the API endpoint as scheduled.
+
+For detailed setup instructions, refer to the [Installation Guide](INSTALLATION.md).
+
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for more details.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
