@@ -15,3 +15,7 @@ Solution: Flask app on ec2 instance. The api endpoint is invoked by an aws event
 Flow: Users sign in to the hosted website, do a one time google Auth. They can view their shifts report. 
 
 Additional Functionality: This Workflow is also integrated with slack using a slack app. If the user ever exceeds their permitted hours, can send an notification. Integrating to other applications should not be challenging. 
+
+
+Deployment:
+Code changes once approved, using github workflows+aws code pipeline are deployed to the ec2 instance. Right now, the service has a single ec2 instance running so the service shuts down for a few seconds during deployment. 
